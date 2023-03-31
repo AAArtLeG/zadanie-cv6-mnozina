@@ -20,6 +20,10 @@ Mnozina* konstructor()
 	return(mn);
 }
 
+void destrucktor(Mnozina* mn)
+{
+	free(mn);
+}
 
 
 Mnozina* copy(Mnozina* mn)
@@ -50,6 +54,16 @@ Mnozina* remove(Mnozina *mn, int index)
 	return(mn);
 }
 
+void print(Mnozina* mn)
+{
+	for (int i = 0; i < mn->size; i++)
+	{
+		printf(" %d ", mn->arr[i]);
+
+	}
+	printf("\n");
+}
+
 Mnozina* optimize(Mnozina* mn)
 {
 	for (int i = 0; i < mn->size; i++)
@@ -70,30 +84,67 @@ Mnozina* optimize(Mnozina* mn)
 	{
 		printf(" %d ", mn->arr[i]);
 
-	}
-	printf("\n");*/
-
-	for (int h = 0; h < 2; h++)
+	}*/
+	printf("\n");
+	//print(mn);
+	int count = 0;
+	int ttemp = 0;
+	Mnozina* nTemp = konstructor();
+	for (int i = 0; i < mn->size; i++)
 	{
-		for (int i = 0; i < mn->size; i++)
+		if (i == 0)
 		{
-			for (int j = 0; j < mn->size; j++)
+			nTemp->arr = (int*)malloc(1 * sizeof(int));
+			nTemp->arr[nTemp->size] = mn->arr[i];
+			nTemp->size++;
+			//printf("%d %d\n", mn->arr[0], mn->size);
+			ttemp = mn->arr[i];
+			//print(nTemp);
+		}
+		else
+		{
+			if (ttemp != mn->arr[i])
 			{
-				if (mn->arr[i] == mn->arr[j] && i != j)
-				{
-					//printf("fff ");
-					mn = remove(mn, j);
-					/*for (int i = 0; i < mn->size; i++)
-					{
-						printf(" %d ", mn->arr[i]);
+				nTemp->size++;
+				Mnozina* temp = copy(nTemp);
 
-					}*/
-					//printf("\n");
+				nTemp->arr = (int*)malloc((nTemp->size) * sizeof(int));
+				for (int j = 0; j < temp->size; j++)
+				{
+					nTemp->arr[j] = temp->arr[j];
 				}
-				//printf("\n");
+				nTemp->arr[nTemp->size - 1] = mn->arr[i];
+				ttemp = mn->arr[i];
+				//print(nTemp);
 			}
 		}
 	}
+	//for (int h = 0; h < 2; h++)
+	//{
+	//	for (int i = 0; i < mn->size; i++)
+	//	{
+	//		for (int j = 0; j < mn->size; j++)
+	//		{
+	//			count++;
+	//			if (mn->arr[i] == mn->arr[j] && i != j)
+	//			{
+	//				//printf("fff ");
+	//				mn = remove(mn, j);
+	//				/*for (int i = 0; i < mn->size; i++)
+	//				{
+	//					printf(" %d ", mn->arr[i]);
+
+	//				}*/
+	//				//printf("\n");
+	//			}
+	//			//printf("\n");
+	//		}
+	//	}
+	//}
+	//printf("%d \n", count);
+	destrucktor(mn);
+	mn = nTemp;
+	
 	return(mn);
 }
 
@@ -113,9 +164,10 @@ Mnozina* pop_back(Mnozina* mn)
 Mnozina* prienik(Mnozina* a, Mnozina* a2)
 {
 	Mnozina* mn = konstructor();
+	int ttemp = 0;
 	for (int i = 0; i < a->size; i++)
 	{
-		for (int j = 0; j < a2->size; j++)
+		for (int j = ttemp; j < a2->size; j++)
 		{
 			if (a->arr[i] == a2->arr[j])
 			{
@@ -125,6 +177,8 @@ Mnozina* prienik(Mnozina* a, Mnozina* a2)
 					mn->arr[mn->size] = a->arr[i];
 					mn->size++;
 					//printf("%d %d\n", mn->arr[0], mn->size);
+					ttemp = j;
+					break;
 				}
 				mn->size++;
 				Mnozina* temp = copy(mn);
@@ -135,6 +189,8 @@ Mnozina* prienik(Mnozina* a, Mnozina* a2)
 					mn->arr[i] = temp->arr[i];
 				}
 				mn->arr[mn->size - 1] = a->arr[i];
+				ttemp = j;
+				break;
 			}
 		}
 	}
@@ -145,7 +201,7 @@ Mnozina* prienik(Mnozina* a, Mnozina* a2)
 
 	}
 	printf("\n");*/
-	mn = optimize(mn);
+	//mn = optimize(mn);
 	return(mn);
 }
 
@@ -171,15 +227,7 @@ Mnozina* ziednotenie(Mnozina* a, Mnozina* a2/*int* a, int* a2, int* arr, int* p*
 	return(mn);
 }
 
-void print(Mnozina* mn)
-{
-	for (int i = 0; i < mn->size; i++)
-	{
-		printf(" %d ", mn->arr[i]);
 
-	}
-	printf("\n");
-}
 
 Mnozina* push_back(Mnozina* mn)
 {
@@ -208,10 +256,7 @@ Mnozina* push_back(Mnozina* mn)
 	return(mn);
 }
 
-void destrucktor(Mnozina* mn)
-{
-	free(mn);
-}
+
 
 int main()
 {
