@@ -119,25 +119,13 @@ void mergeSort(int arr[], int l, int r) {
 
 Mnozina* optimize(Mnozina* mn)
 {
-	for (int i = 0; i < mn->size; i++)
-	{
-		for (int j = i; j < mn->size; j++)
-		{
-			if (mn->arr[i] > mn->arr[j])
-			{
-				int temp;
-				temp = mn->arr[i];
-				mn->arr[i] = mn->arr[j];
-				mn->arr[j] = temp;
-			}
-		}
-	}
-	/*printf("ff0 ");
+	mergeSort(mn->arr, 0, mn->size - 1);
+	printf("sorted ff0 \n");
 	for (int i = 0; i < mn->size; i++)
 	{
 		printf(" %d ", mn->arr[i]);
 
-	}*/
+	}
 	printf("\n");
 	//print(mn);
 	int count = 0;
