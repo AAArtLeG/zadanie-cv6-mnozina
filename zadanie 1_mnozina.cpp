@@ -22,6 +22,7 @@ Mnozina* konstructor()
 
 void destrucktor(Mnozina* mn)
 {
+	free(mn->arr);
 	free(mn);
 }
 
@@ -252,6 +253,7 @@ Mnozina* push_back(Mnozina* mn)
 		mn->arr[i] = temp->arr[i];
 	}
 	mn->arr[mn->size-1] = a;
+	destrucktor(temp);
 	//printf("%d %d", mn->arr[0], mn->size);
 	return(mn);
 }
