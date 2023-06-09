@@ -40,6 +40,7 @@ Mnozina* copy(Mnozina* mn)
 	newMn->arr = (int*)malloc((mn->size) * sizeof(int));
 	if (newMn->arr == NULL) {
 		printf("Error\n");
+		destrucktor(newMn);
 		return nullptr;
 	}
 	newMn->size = mn->size;
@@ -87,6 +88,7 @@ void merge(int arr[], int l, int mid, int r) {
 	int* R = (int*)malloc(n2 * sizeof(int));
 	if (R == NULL) {
 		printf("Error\n");
+		free(L);
 		return;
 	}
 
@@ -152,6 +154,7 @@ Mnozina* optimize(Mnozina* mn)
 			nTemp->arr = (int*)malloc(1 * sizeof(int));
 			if (nTemp->arr == NULL) {
 				printf("Error\n");
+				destrucktor(nTemp);
 				return nullptr;
 			}
 			nTemp->arr[nTemp->size] = mn->arr[i];
@@ -168,6 +171,7 @@ Mnozina* optimize(Mnozina* mn)
 				nTemp->arr = (int*)malloc((nTemp->size) * sizeof(int));
 				if (nTemp->arr == NULL) {
 					printf("Error\n");
+					destrucktor(nTemp);
 					return nullptr;
 				}
 				for (int j = 0; j < temp->size; j++)
@@ -213,7 +217,7 @@ void push_back(Mnozina* mn, int a)
 	}
 	mn->size++;
 	Mnozina* temp = copy(mn);
-
+	free(mn->arr);
 	mn->arr = (int*)malloc((mn->size) * sizeof(int));
 	if (mn->arr == NULL) {
 		printf("Error\n");
@@ -246,7 +250,7 @@ void push_back(Mnozina* mn)
 	}
 	mn->size++;
 	Mnozina* temp = copy(mn);
-
+	free(mn->arr);
 	mn->arr = (int*)malloc((mn->size) * sizeof(int));
 	if (mn->arr == NULL) {
 		printf("Error\n");
