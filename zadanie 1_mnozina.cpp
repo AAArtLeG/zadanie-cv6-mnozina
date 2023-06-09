@@ -19,7 +19,6 @@ Mnozina* konstructor()
 		return nullptr;
 	}
 	mn->arr = NULL;
-	//mn->arr = (int*)malloc(1 * sizeof(int));
 	mn->size = 0;
 	return(mn);
 }
@@ -48,8 +47,6 @@ Mnozina* copy(Mnozina* mn)
 	{
 		newMn->arr[i] = mn->arr[i];
 	}
-
-	//push_back(newMn);
 	return(newMn);
 }
 
@@ -92,7 +89,6 @@ void merge(int arr[], int l, int mid, int r) {
 		printf("Error\n");
 		return;
 	}
-	//int L[n1], R[n2];
 
 	for (i = 0; i < n1; i++)
 		L[i] = arr[l + i];
@@ -140,12 +136,6 @@ void mergeSort(int arr[], int l, int r) {
 Mnozina* optimize(Mnozina* mn)
 {
 	mergeSort(mn->arr, 0, mn->size - 1);
-	/*printf("sorted ff0 \n");
-	for (int i = 0; i < mn->size; i++)
-	{
-		printf(" %d ", mn->arr[i]);
-
-	}*/
 	printf("\n");
 	//print(mn);
 	int count = 0;
@@ -166,9 +156,7 @@ Mnozina* optimize(Mnozina* mn)
 			}
 			nTemp->arr[nTemp->size] = mn->arr[i];
 			nTemp->size++;
-			//printf("%d %d\n", mn->arr[0], mn->size);
 			ttemp = mn->arr[i];
-			//print(nTemp);
 		}
 		else
 		{
@@ -188,7 +176,6 @@ Mnozina* optimize(Mnozina* mn)
 				}
 				nTemp->arr[nTemp->size - 1] = mn->arr[i];
 				ttemp = mn->arr[i];
-				//print(nTemp);
 			}
 		}
 	}
@@ -204,7 +191,6 @@ Mnozina* pop_back(Mnozina* mn)
 		printf("No elements left\n");
 		return(mn);
 	}
-	//free(&mn->arr[mn->size]);
 	mn->size--;
 	return(mn);
 }
@@ -293,14 +279,12 @@ Mnozina* ziednotenie(Mnozina* a, Mnozina* a2/*int* a, int* a2, int* arr, int* p*
 			
 			last = a->arr[i];
 			i++;
-			//printf("%d %d %d\n", a->arr[i-1], last, i);
 			continue;
 		}
 		if (a->arr[i] > a2->arr[j]) {
 			push_back(mn, a2->arr[j]);
 			last = a2->arr[j];
 			j++;
-			//printf("%d %d %d\n", a2->arr[j-1], last, j);
 			continue;
 		}
 		else {
@@ -309,7 +293,6 @@ Mnozina* ziednotenie(Mnozina* a, Mnozina* a2/*int* a, int* a2, int* arr, int* p*
 				last = a->arr[i];
 				i++;
 				j++;
-				//printf("%d %d %d %d\n", a->arr[i-1], last, i, j);
 				continue;
 			}
 			else
@@ -380,13 +363,10 @@ int main()
 	{
 		push_back(mn);
 	}
-	//print(mn);
-	//mn = optimize(mn);
 	for (int i = 0; i < 15; i++)
 	{
 		push_back(mn2);
 	}
-	//print(mn2);
 	mn = optimize(mn);
 	mn2 = optimize(mn2);
 	print(mn);
@@ -395,86 +375,11 @@ int main()
 	printf("prie\n");
 	print(pr);
 	printf("\n");
-	/*Mnozina* copia = copy(mn);
-
-	print(copia);
-	printf("\n");
-	print(mn);
-	printf("\n");*/
 	Mnozina* zied = konstructor();
 	zied = ziednotenie(mn, mn2);
 	printf("zied \n");
-
 	print(zied);
 	destrucktor(mn);
 	destrucktor(mn2);
 	destrucktor(pr);
-
-
-
-
-
-
-	//int n = 4;
-	//int a[4] = { 1,2,3,4 };
-	//int a2[4] = { 1,4,5,6 };
-	//int* arr = konstructor();
-	//int p = 0;
-	///*for (int i = 0; i < n; i++)
-	//{
-	//	for (int j = 0; j < n; j++)
-	//	{
-	//		if (a[i] == a2[j])
-	//		{
-	//			arr = (int*)realloc(arr, sizeof(arr) * 4);
-	//			arr[p] = a[i];
-	//			p++;
-	//		}
-	//	}
-	//}*/
-
-	//arr = prienik(a, a2, arr, &p);
-
-	//for (int i = 0; i < p; i++)
-	//{
-	//	printf("%d ", arr[i]);
-	//}
-	//printf(" g ");
-
-
-	//
-	//p = 0;
-	//int k = 0;
-	//int* arr2 = konstructor();
-	///*for (int i = 0; i < 4; i++)
-	//{
-	//	arr2[i] = a[i];
-	//}
-	//for (int i = 0; i < 4; i++)
-	//{
-	//	for (int j = 0; j < 4; j++)
-	//	{
-	//		if (a2[i] == a[j])
-	//		{
-	//			k++;
-	//		}
-	//	}
-	//	if (k == 0)
-	//	{
-	//		arr2 = (int*)realloc(arr2, sizeof(arr2) * 4);
-	//		arr2[4 + p] = a2[i];
-	//		p++;
-	//	}
-	//	k = 0;
-	//}*/
-
-	//arr2 = ziednotenie(a, a2, arr, &p);
-
-	//for (int i = 0; i < p + 4; i++)
-	//{
-	//	printf("%d ", arr2[i]);
-	//}
-
-	//free(arr2);
-
 }
