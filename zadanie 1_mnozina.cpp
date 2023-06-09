@@ -211,62 +211,6 @@ Mnozina* pop_back(Mnozina* mn)
 
 
 
-Mnozina* prienik(Mnozina* a, Mnozina* a2)
-{
-	Mnozina* mn = konstructor();
-	if (mn == NULL) {
-		printf("Error\n");
-		return nullptr;
-	}
-	int ttemp = 0;
-	for (int i = 0; i < a->size; i++)
-	{
-		for (int j = ttemp; j < a2->size; j++)
-		{
-			if (a->arr[i] == a2->arr[j])
-			{
-				if (mn->size == 0)
-				{
-					mn->arr = (int*)malloc(1 * sizeof(int));
-					if (mn->arr == NULL) {
-						printf("Error\n");
-						return nullptr;
-					}
-					mn->arr[mn->size] = a->arr[i];
-					mn->size++;
-					//printf("%d %d\n", mn->arr[0], mn->size);
-					ttemp = j;
-					break;
-				}
-				mn->size++;
-				Mnozina* temp = copy(mn);
-
-				mn->arr = (int*)malloc((mn->size) * sizeof(int));
-				if (mn->arr == NULL) {
-					printf("Error\n");
-					return nullptr;
-				}
-				for (int i = 0; i < temp->size; i++)
-				{
-					mn->arr[i] = temp->arr[i];
-				}
-				mn->arr[mn->size - 1] = a->arr[i];
-				ttemp = j;
-				break;
-			}
-		}
-	}
-	/*printf("ffp ");
-	for (int i = 0; i < mn->size; i++)
-	{
-		printf(" %d ", mn->arr[i]);
-
-	}
-	printf("\n");*/
-	//mn = optimize(mn);
-	return(mn);
-}
-
 void push_back(Mnozina* mn, int a)
 {
 	if (mn->size == 0)
@@ -348,16 +292,15 @@ Mnozina* ziednotenie(Mnozina* a, Mnozina* a2/*int* a, int* a2, int* arr, int* p*
 			push_back(mn, a->arr[i]);
 			
 			last = a->arr[i];
-			//mn->arr[k] = L[i];
 			i++;
-			printf("%d %d %d\n", a->arr[i-1], last, i);
+			//printf("%d %d %d\n", a->arr[i-1], last, i);
 			continue;
 		}
 		if (a->arr[i] > a2->arr[j]) {
 			push_back(mn, a2->arr[j]);
 			last = a2->arr[j];
 			j++;
-			printf("%d %d %d\n", a2->arr[j-1], last, j);
+			//printf("%d %d %d\n", a2->arr[j-1], last, j);
 			continue;
 		}
 		else {
@@ -366,7 +309,7 @@ Mnozina* ziednotenie(Mnozina* a, Mnozina* a2/*int* a, int* a2, int* arr, int* p*
 				last = a->arr[i];
 				i++;
 				j++;
-				printf("%d %d %d %d\n", a->arr[i-1], last, i, j);
+				//printf("%d %d %d %d\n", a->arr[i-1], last, i, j);
 				continue;
 			}
 			else
@@ -386,31 +329,43 @@ Mnozina* ziednotenie(Mnozina* a, Mnozina* a2/*int* a, int* a2, int* arr, int* p*
 		push_back(mn, a2->arr[j]);
 		j++;
 	}
-	//Mnozina* mn = konstructor();
-	//if (mn == NULL) {
-	//	printf("Error\n");
-	//	return nullptr;
-	//}
-	//mn = copy(a);
-	//int k = 0;
-	//for (int i = 0; i < a2->size; i++)
-	//{
-	//	mn->size++;
-	//	Mnozina* temp = copy(mn);
+	return(mn);
+}
 
-	//	mn->arr = (int*)malloc((mn->size) * sizeof(int));
-	//	if (mn->arr == NULL) {
-	//		printf("Error\n");
-	//		return nullptr;
-	//	}
-	//	for (int i = 0; i < temp->size; i++)
-	//	{
-	//		mn->arr[i] = temp->arr[i];
-	//	}
-	//	mn->arr[mn->size - 1] = a2->arr[i];
-	//}
 
-	//mn = optimize(mn);
+
+Mnozina* prienik(Mnozina* a, Mnozina* a2)
+{
+	Mnozina* mn = konstructor();
+	if (mn == NULL) {
+		printf("Error\n");
+		return nullptr;
+	}
+
+	int i = 0;
+	int j = 0;
+
+	int last = -1;
+
+	while (i < a->size && j < a2->size) {
+		if (a->arr[i] == a2->arr[j]) {
+			if (last != a->arr[i]) {
+				push_back(mn, a->arr[i]);
+				last = a->arr[i];
+			}
+			i++;
+			j++;
+			continue;
+		}
+		if (a->arr[i] < a2->arr[j]) {
+			i++;
+			continue;
+		}
+		else {
+			j++;
+		}
+	}
+	
 	return(mn);
 }
 
@@ -440,12 +395,12 @@ int main()
 	printf("prie\n");
 	print(pr);
 	printf("\n");
-	Mnozina* copia = copy(mn);
+	/*Mnozina* copia = copy(mn);
 
 	print(copia);
 	printf("\n");
 	print(mn);
-	printf("\n");
+	printf("\n");*/
 	Mnozina* zied = konstructor();
 	zied = ziednotenie(mn, mn2);
 	printf("zied \n");
