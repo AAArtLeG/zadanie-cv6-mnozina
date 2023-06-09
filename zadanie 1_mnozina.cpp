@@ -138,8 +138,6 @@ void mergeSort(int arr[], int l, int r) {
 Mnozina* optimize(Mnozina* mn)
 {
 	mergeSort(mn->arr, 0, mn->size - 1);
-	printf("\n");
-	//print(mn);
 	int count = 0;
 	int ttemp = 0;
 	Mnozina* nTemp = konstructor();
@@ -151,6 +149,7 @@ Mnozina* optimize(Mnozina* mn)
 	{
 		if (i == 0)
 		{
+			free(nTemp->arr);
 			nTemp->arr = (int*)malloc(1 * sizeof(int));
 			if (nTemp->arr == NULL) {
 				printf("Error\n");
@@ -167,7 +166,7 @@ Mnozina* optimize(Mnozina* mn)
 			{
 				nTemp->size++;
 				Mnozina* temp = copy(nTemp);
-
+				free(nTemp->arr);
 				nTemp->arr = (int*)malloc((nTemp->size) * sizeof(int));
 				if (nTemp->arr == NULL) {
 					printf("Error\n");
@@ -185,7 +184,6 @@ Mnozina* optimize(Mnozina* mn)
 	}
 	destrucktor(mn);
 	mn = nTemp;
-	
 	return(mn);
 }
 
