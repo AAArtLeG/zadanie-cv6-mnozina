@@ -267,41 +267,39 @@ Mnozina* prienik(Mnozina* a, Mnozina* a2)
 	return(mn);
 }
 
-Mnozina* ziednotenie(Mnozina* a, Mnozina* a2/*int* a, int* a2, int* arr, int* p*/)
+void push_back(Mnozina* mn, int a)
 {
-	Mnozina* mn = konstructor();
-	if (mn == NULL) {
-		printf("Error\n");
-		return nullptr;
-	}
-	mn = copy(a);
-	int k = 0;
-	for (int i = 0; i < a2->size; i++)
+	if (mn->size == 0)
 	{
-		mn->size++;
-		Mnozina* temp = copy(mn);
-
-		mn->arr = (int*)malloc((mn->size) * sizeof(int));
+		printf("fff %d   \n", a);
+		mn->arr = (int*)malloc(1 * sizeof(int));
 		if (mn->arr == NULL) {
 			printf("Error\n");
-			return nullptr;
+			return;
 		}
-		for (int i = 0; i < temp->size; i++)
-		{
-			mn->arr[i] = temp->arr[i];
-		}
-		mn->arr[mn->size - 1] = a2->arr[i];
+		mn->arr[mn->size] = a;
+		mn->size++;
+		return;
 	}
+	mn->size++;
+	Mnozina* temp = copy(mn);
 
-	mn = optimize(mn);
-	return(mn);
+	mn->arr = (int*)malloc((mn->size) * sizeof(int));
+	if (mn->arr == NULL) {
+		printf("Error\n");
+		return;
+	}
+	for (int i = 0; i < temp->size; i++)
+	{
+		mn->arr[i] = temp->arr[i];
+	}
+	mn->arr[mn->size - 1] = a;
+	destrucktor(temp);
 }
 
-
-
-Mnozina* push_back(Mnozina* mn)
+void push_back(Mnozina* mn)
 {
-	
+
 	int a = rand() % 15;
 
 	if (mn->size == 0)
@@ -310,12 +308,11 @@ Mnozina* push_back(Mnozina* mn)
 		mn->arr = (int*)malloc(1 * sizeof(int));
 		if (mn->arr == NULL) {
 			printf("Error\n");
-			return nullptr;
+			return;
 		}
 		mn->arr[mn->size] = a;
 		mn->size++;
-		//printf("%d %d\n", mn->arr[0], mn->size);
-		return(mn);
+		return;
 	}
 	mn->size++;
 	Mnozina* temp = copy(mn);
@@ -323,15 +320,97 @@ Mnozina* push_back(Mnozina* mn)
 	mn->arr = (int*)malloc((mn->size) * sizeof(int));
 	if (mn->arr == NULL) {
 		printf("Error\n");
-		return nullptr;
+		return;
 	}
 	for (int i = 0; i < temp->size; i++)
 	{
 		mn->arr[i] = temp->arr[i];
 	}
-	mn->arr[mn->size-1] = a;
+	mn->arr[mn->size - 1] = a;
 	destrucktor(temp);
-	//printf("%d %d", mn->arr[0], mn->size);
+}
+
+Mnozina* ziednotenie(Mnozina* a, Mnozina* a2/*int* a, int* a2, int* arr, int* p*/)
+{
+	Mnozina* mn = konstructor();
+	if (mn == NULL) {
+		printf("Error\n");
+		return nullptr;
+	}
+
+	int i = 0;
+	int j = 0;
+
+	int last = -1;
+	
+	while (i < a->size && j < a2->size) {
+		if (a->arr[i] < a2->arr[j]) {
+			push_back(mn, a->arr[i]);
+			
+			last = a->arr[i];
+			//mn->arr[k] = L[i];
+			i++;
+			printf("%d %d %d\n", a->arr[i-1], last, i);
+			continue;
+		}
+		if (a->arr[i] > a2->arr[j]) {
+			push_back(mn, a2->arr[j]);
+			last = a2->arr[j];
+			j++;
+			printf("%d %d %d\n", a2->arr[j-1], last, j);
+			continue;
+		}
+		else {
+			if (last != a->arr[i]) {
+				push_back(mn, a->arr[i]);
+				last = a->arr[i];
+				i++;
+				j++;
+				printf("%d %d %d %d\n", a->arr[i-1], last, i, j);
+				continue;
+			}
+			else
+			{
+				i++;
+				j++;
+			}
+		}
+	}
+
+	while (i < a->size) {
+		push_back(mn, a->arr[i]);
+		i++;
+	}
+
+	while (j < a2->size) {
+		push_back(mn, a2->arr[j]);
+		j++;
+	}
+	//Mnozina* mn = konstructor();
+	//if (mn == NULL) {
+	//	printf("Error\n");
+	//	return nullptr;
+	//}
+	//mn = copy(a);
+	//int k = 0;
+	//for (int i = 0; i < a2->size; i++)
+	//{
+	//	mn->size++;
+	//	Mnozina* temp = copy(mn);
+
+	//	mn->arr = (int*)malloc((mn->size) * sizeof(int));
+	//	if (mn->arr == NULL) {
+	//		printf("Error\n");
+	//		return nullptr;
+	//	}
+	//	for (int i = 0; i < temp->size; i++)
+	//	{
+	//		mn->arr[i] = temp->arr[i];
+	//	}
+	//	mn->arr[mn->size - 1] = a2->arr[i];
+	//}
+
+	//mn = optimize(mn);
 	return(mn);
 }
 
@@ -346,11 +425,13 @@ int main()
 	{
 		push_back(mn);
 	}
+	//print(mn);
 	//mn = optimize(mn);
 	for (int i = 0; i < 15; i++)
 	{
 		push_back(mn2);
 	}
+	//print(mn2);
 	mn = optimize(mn);
 	mn2 = optimize(mn2);
 	print(mn);
