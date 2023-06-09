@@ -15,7 +15,7 @@ Mnozina* konstructor()
 {
 	Mnozina* mn = (Mnozina*)malloc(sizeof(Mnozina));
 	if (mn == NULL) {
-		printf("Error\n");
+		printf("Memory allocation problem\n");
 		return nullptr;
 	}
 	mn->arr = NULL;
@@ -34,12 +34,12 @@ Mnozina* copy(Mnozina* mn)
 {
 	Mnozina* newMn = konstructor();
 	if (newMn == NULL) {
-		printf("Error\n");
+		printf("Memory allocation problem\n");
 		return nullptr;
 	}
 	newMn->arr = (int*)malloc((mn->size) * sizeof(int));
 	if (newMn->arr == NULL) {
-		printf("Error\n");
+		printf("Memory allocation problem\n");
 		destrucktor(newMn);
 		return nullptr;
 	}
@@ -82,12 +82,12 @@ void merge(int arr[], int l, int mid, int r) {
 
 	int* L = (int*)malloc(n1 * sizeof(int));
 	if (L == NULL) {
-		printf("Error\n");
+		printf("Memory allocation problem\n");
 		return;
 	}
 	int* R = (int*)malloc(n2 * sizeof(int));
 	if (R == NULL) {
-		printf("Error\n");
+		printf("Memory allocation problem\n");
 		free(L);
 		return;
 	}
@@ -142,7 +142,7 @@ Mnozina* optimize(Mnozina* mn)
 	int ttemp = 0;
 	Mnozina* nTemp = konstructor();
 	if (nTemp == NULL) {
-		printf("Error\n");
+		printf("Memory allocation problem\n");
 		return nullptr;
 	}
 	for (int i = 0; i < mn->size; i++)
@@ -152,7 +152,7 @@ Mnozina* optimize(Mnozina* mn)
 			free(nTemp->arr);
 			nTemp->arr = (int*)malloc(1 * sizeof(int));
 			if (nTemp->arr == NULL) {
-				printf("Error\n");
+				printf("Memory allocation problem\n");
 				destrucktor(nTemp);
 				return nullptr;
 			}
@@ -169,7 +169,7 @@ Mnozina* optimize(Mnozina* mn)
 				free(nTemp->arr);
 				nTemp->arr = (int*)malloc((nTemp->size) * sizeof(int));
 				if (nTemp->arr == NULL) {
-					printf("Error\n");
+					printf("Memory allocation problem\n");
 					destrucktor(nTemp);
 					return nullptr;
 				}
@@ -206,7 +206,7 @@ void push_back(Mnozina* mn, int a)
 		printf("fff %d   \n", a);
 		mn->arr = (int*)malloc(1 * sizeof(int));
 		if (mn->arr == NULL) {
-			printf("Error\n");
+			printf("Memory allocation problem\n");
 			return;
 		}
 		mn->arr[mn->size] = a;
@@ -218,7 +218,7 @@ void push_back(Mnozina* mn, int a)
 	free(mn->arr);
 	mn->arr = (int*)malloc((mn->size) * sizeof(int));
 	if (mn->arr == NULL) {
-		printf("Error\n");
+		printf("Memory allocation problem\n");
 		return;
 	}
 	for (int i = 0; i < temp->size; i++)
@@ -239,7 +239,7 @@ void push_back(Mnozina* mn)
 		printf("fff %d   \n", a);
 		mn->arr = (int*)malloc(1 * sizeof(int));
 		if (mn->arr == NULL) {
-			printf("Error\n");
+			printf("Memory allocation problem\n");
 			return;
 		}
 		mn->arr[mn->size] = a;
@@ -266,7 +266,7 @@ Mnozina* ziednotenie(Mnozina* a, Mnozina* a2/*int* a, int* a2, int* arr, int* p*
 {
 	Mnozina* mn = konstructor();
 	if (mn == NULL) {
-		printf("Error\n");
+		printf("Memory allocation problem\n");
 		return nullptr;
 	}
 
@@ -323,7 +323,7 @@ Mnozina* prienik(Mnozina* a, Mnozina* a2)
 {
 	Mnozina* mn = konstructor();
 	if (mn == NULL) {
-		printf("Error\n");
+		printf("Memory allocation problem\n");
 		return nullptr;
 	}
 
@@ -358,30 +358,50 @@ Mnozina* prienik(Mnozina* a, Mnozina* a2)
 
 int main()
 {
-	srand(time(0));
-	Mnozina* mn = konstructor();
-	Mnozina* mn2 = konstructor();
-	for (int i = 0; i < 15; i++)
-	{
-		push_back(mn);
+	while (true) {
+		srand(time(0));
+		Mnozina* mn = konstructor();
+		if (mn == NULL)
+			continue;
+		Mnozina* mn2 = konstructor();
+		if (mn == NULL)
+			continue;
+		for (int i = 0; i < 15; i++)
+		{
+			push_back(mn);
+		}
+		for (int i = 0; i < 15; i++)
+		{
+			push_back(mn2);
+		}
+		mn = optimize(mn);
+		if (mn == NULL)
+			continue;
+		mn2 = optimize(mn2);
+		if (mn == NULL)
+			continue;
+		print(mn);
+		print(mn2);
+		if (mn == NULL)
+			continue;
+		Mnozina* pr = prienik(mn, mn2);
+		if (mn == nullptr)
+			continue;
+		printf("prie\n");
+		print(pr);
+		printf("\n");
+		Mnozina* zied = konstructor();
+		if (mn == nullptr)
+			continue;
+		zied = ziednotenie(mn, mn2);
+		if (mn == nullptr)
+			continue;
+		printf("zied \n");
+		print(zied);
+		destrucktor(mn);
+		destrucktor(mn2);
+		destrucktor(pr);
+		break;
 	}
-	for (int i = 0; i < 15; i++)
-	{
-		push_back(mn2);
-	}
-	mn = optimize(mn);
-	mn2 = optimize(mn2);
-	print(mn);
-	print(mn2);
-	Mnozina* pr = prienik(mn, mn2);
-	printf("prie\n");
-	print(pr);
-	printf("\n");
-	Mnozina* zied = konstructor();
-	zied = ziednotenie(mn, mn2);
-	printf("zied \n");
-	print(zied);
-	destrucktor(mn);
-	destrucktor(mn2);
-	destrucktor(pr);
+	
 }
