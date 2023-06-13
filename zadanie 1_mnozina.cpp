@@ -17,7 +17,7 @@ Mnozina* konstructor()
 	if (mn == NULL) {
 		//printf("Memory allocation problem\n");
 		konstructor();
-	}
+	} 
 	mn->arr = NULL;
 	mn->size = 0;
 	return(mn);
@@ -75,7 +75,7 @@ void print(Mnozina* mn)
 	printf("\n");
 }
 
-void merge(int arr[], int l, int mid, int r) {
+void merge(int *arr, int l, int mid, int r) {
 	int i, j, k;
 	const int n1 = mid - l + 1;  
 	const int n2 = r - mid;       
@@ -126,7 +126,7 @@ void merge(int arr[], int l, int mid, int r) {
 	}
 }
 
-void mergeSort(int arr[], int l, int r) {
+void mergeSort(int *arr, int l, int r) {
 	if (l < r) {
 		int mid = l + (r - l) / 2;
 		mergeSort(arr, l, mid);
