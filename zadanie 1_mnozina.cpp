@@ -14,10 +14,10 @@ struct Mnozina
 Mnozina* konstructor()
 {
 	Mnozina* mn = (Mnozina*)malloc(sizeof(Mnozina));
-	if (mn == NULL) {
-		//printf("Memory allocation problem\n");
-		konstructor();
-	} 
+	//if (mn == NULL) {
+	//	//printf("Memory allocation problem\n");
+	//	konstructor();
+	//} 
 	mn->arr = NULL;
 	mn->size = 0;
 	return(mn);
@@ -33,10 +33,10 @@ void destrucktor(Mnozina* mn)
 Mnozina* copy(Mnozina* mn)
 {
 	Mnozina* newMn = konstructor();
-	if (newMn == NULL) {
-		//printf("Memory allocation problem\n");
-		copy(mn);
-	}
+	//if (newMn == NULL) {
+	//	//printf("Memory allocation problem\n");
+	//	copy(mn);
+	//}
 	newMn->arr = (int*)malloc((mn->size) * sizeof(int));
 	if (newMn->arr == NULL) {
 		//printf("Memory allocation problem\n");
@@ -81,16 +81,16 @@ void merge(int *arr, int l, int mid, int r) {
 	const int n2 = r - mid;       
 
 	int* L = (int*)malloc(n1 * sizeof(int));
-	if (L == NULL) {
-		//printf("Memory allocation problem\n");
-		merge(arr, l, mid, r);
-	}
+	//if (L == NULL) {
+	//	//printf("Memory allocation problem\n");
+	//	merge(arr, l, mid, r);
+	//}
 	int* R = (int*)malloc(n2 * sizeof(int));
-	if (R == NULL) {
-		//printf("Memory allocation problem\n");
-		free(L);
-		merge(arr, l, mid, r);
-	}
+	//if (R == NULL) {
+	//	//printf("Memory allocation problem\n");
+	//	free(L);
+	//	merge(arr, l, mid, r);
+	//}
 
 	for (i = 0; i < n1; i++)
 		L[i] = arr[l + i];
@@ -141,10 +141,10 @@ Mnozina* optimize(Mnozina* mn)
 	int count = 0;
 	int ttemp = 0;
 	Mnozina* nTemp = konstructor();
-	if (nTemp == NULL) {
-		//printf("Memory allocation problem\n");
-		optimize(mn);
-	}
+	//if (nTemp == NULL) {
+	//	//printf("Memory allocation problem\n");
+	//	optimize(mn);
+	//}
 	for (int i = 0; i < mn->size; i++)
 	{
 		if (i == 0)
@@ -354,6 +354,23 @@ Mnozina* prienik(Mnozina* a, Mnozina* a2)
 	return(mn);
 }
 
+bool search(Mnozina* a, int x) 
+{
+	int f = 0;
+	int l = a->size - 1;
+	while(f <= l) {
+		int mid = l + (f - l) / 2;
+		if (x == a->arr[mid])
+			return true;
+		if (x > a->arr[mid])
+			f = mid + 1;
+			//search(a, x, mid + 1, l);
+		if (x < a->arr[mid])
+			l = mid - 1;
+			//search(a, x, f, mid - 1);
+	}
+	return false;
+}
 
 
 int main()
@@ -381,6 +398,14 @@ int main()
 	zied = ziednotenie(mn, mn2);
 	printf("zied \n");
 	print(zied);
+	print(mn);
+	puts("Search: ");
+	int x;
+	scanf_s("%d", &x);
+	if (search(mn, x))
+		printf("True\n");
+	else
+		printf("False");
 	destrucktor(mn);
 	destrucktor(mn2);
 	destrucktor(pr);
