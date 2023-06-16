@@ -364,10 +364,8 @@ bool search(Mnozina* a, int x)
 			return true;
 		if (x > a->arr[mid])
 			f = mid + 1;
-			//search(a, x, mid + 1, l);
 		if (x < a->arr[mid])
 			l = mid - 1;
-			//search(a, x, f, mid - 1);
 	}
 	return false;
 }
