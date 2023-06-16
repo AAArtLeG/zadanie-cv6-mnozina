@@ -105,39 +105,6 @@ void push_back(Mnozina* mn, int a)
 	destrucktor(temp);
 }
 
-void push_back(Mnozina* mn)
-{
-
-	int a = rand() % 15;
-
-	if (mn->size == 0)
-	{
-		printf("fff %d   \n", a);
-		mn->arr = (int*)malloc(1 * sizeof(int));
-		if (mn->arr == NULL) {
-			//printf("Memory allocation problem\n");
-			push_back(mn);
-		}
-		mn->arr[mn->size] = a;
-		mn->size++;
-		return;
-	}
-	mn->size++;
-	Mnozina* temp = copy(mn);
-	free(mn->arr);
-	mn->arr = (int*)malloc((mn->size) * sizeof(int));
-	if (mn->arr == NULL) {
-		//printf("Error\n");
-		push_back(mn);
-	}
-	for (int i = 0; i < temp->size; i++)
-	{
-		mn->arr[i] = temp->arr[i];
-	}
-	mn->arr[mn->size - 1] = a;
-	destrucktor(temp);
-}
-
 void merge(int *arr, int l, int mid, int r) {
 	int i, j, k;
 	const int n1 = mid - l + 1;  
@@ -215,10 +182,6 @@ Mnozina* pop_back(Mnozina* mn)
 	mn->size--;
 	return(mn);
 }
-
-
-
-
 
 Mnozina* ziednotenie(Mnozina* a, Mnozina* a2/*int* a, int* a2, int* arr, int* p*/)
 {
@@ -334,13 +297,16 @@ int main()
 	srand(time(0));
 	Mnozina* mn = konstructor();
 	Mnozina* mn2 = konstructor();
+	int a;
 	for (int i = 0; i < 15; i++)
 	{
-		push_back(mn);
+		a = rand() % 15;
+		push_back(mn, a);
 	}
 	for (int i = 0; i < 15; i++)
 	{
-		push_back(mn2);
+		a = rand() % 15;
+		push_back(mn2, a);
 	}
 	mn = optimize(mn);
 	mn2 = optimize(mn2);
