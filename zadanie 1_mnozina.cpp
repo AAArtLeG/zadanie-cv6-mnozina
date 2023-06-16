@@ -33,10 +33,10 @@ void destrucktor(Mnozina* mn)
 Mnozina* copy(Mnozina* mn)
 {
 	Mnozina* newMn = konstructor();
-	//if (newMn == NULL) {
-	//	//printf("Memory allocation problem\n");
-	//	copy(mn);
-	//}
+	if (newMn == NULL) {
+		//printf("Memory allocation problem\n");
+		copy(mn);
+	}
 	newMn->arr = (int*)malloc((mn->size) * sizeof(int));
 	if (newMn->arr == NULL) {
 		//printf("Memory allocation problem\n");
@@ -81,16 +81,16 @@ void merge(int *arr, int l, int mid, int r) {
 	const int n2 = r - mid;       
 
 	int* L = (int*)malloc(n1 * sizeof(int));
-	//if (L == NULL) {
-	//	//printf("Memory allocation problem\n");
-	//	merge(arr, l, mid, r);
-	//}
+	if (L == NULL) {
+		//printf("Memory allocation problem\n");
+		merge(arr, l, mid, r);
+	}
 	int* R = (int*)malloc(n2 * sizeof(int));
-	//if (R == NULL) {
-	//	//printf("Memory allocation problem\n");
-	//	free(L);
-	//	merge(arr, l, mid, r);
-	//}
+	if (R == NULL) {
+		//printf("Memory allocation problem\n");
+		free(L);
+		merge(arr, l, mid, r);
+	}
 
 	for (i = 0; i < n1; i++)
 		L[i] = arr[l + i];
@@ -141,10 +141,10 @@ Mnozina* optimize(Mnozina* mn)
 	int count = 0;
 	int ttemp = 0;
 	Mnozina* nTemp = konstructor();
-	//if (nTemp == NULL) {
-	//	//printf("Memory allocation problem\n");
-	//	optimize(mn);
-	//}
+	if (nTemp == NULL) {
+		//printf("Memory allocation problem\n");
+		optimize(mn);
+	}
 	for (int i = 0; i < mn->size; i++)
 	{
 		if (i == 0)
