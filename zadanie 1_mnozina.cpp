@@ -33,8 +33,7 @@ Mnozina* copy(Mnozina* mn)
 {
 	Mnozina* newMn = konstructor();
 	if (newMn == NULL) {
-		//printf("Memory allocation problem\n");
-		copy(mn);
+		return NULL;
 	}
 	newMn->arr = (int*)malloc((mn->size) * sizeof(int));
 	if (newMn->arr == NULL) {
