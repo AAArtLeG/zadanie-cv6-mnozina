@@ -114,6 +114,7 @@ void merge(int *arr, int l, int mid, int r) {
 	}
 	int* R = (int*)malloc(n2 * sizeof(int));
 	if (R == NULL) {
+		free(L);
 		return;
 	}
 
